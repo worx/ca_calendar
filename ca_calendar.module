@@ -1,0 +1,124 @@
+<?php
+
+include_once('ca_calendar.features.inc');
+
+function ca_calendar_action_info() {
+  return array(
+    'ca_calendar_add_calendar_event_admin_action' => array(
+      'type' => 'user',
+      'description' => t('Add calendar event administrator role'),
+    ),
+    'ca_calendar_remove_calendar_event_admin_action' => array(
+      'type' => 'user',
+      'description' => t('Remove calendar event administrator role'),
+    ),
+    'ca_calendar_add_calendar_event_creator_action' => array(
+      'type' => 'user',
+      'description' => t('Add calendar event creator role'),
+    ),
+    'ca_calendar_remove_calendar_event_creator_action' => array(
+      'type' => 'user',
+      'description' => t('Remove calendar event creator role'),
+    ),
+  );
+}
+
+function ca_calendar_add_calendar_event_admin_action($user, $context) {
+  $available_roles = user_roles(TRUE);
+  $roles = $user->roles;
+  foreach ($available_roles as $key => $role) {
+    if ($role == 'calendar event administrator') {
+      $add_roles[$key] = $role;
+    }
+  }
+  $roles += $add_roles;
+  user_save($user, array('roles' => $roles));
+}
+
+function ca_calendar_add_calendar_event_admin_action_form() {
+  $form = array();
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Promote to Calendar Event Administrator',
+  );
+  return $form;
+}
+
+function ca_calendar_add_calendar_event_admin_action_submit(&$form, &$form_state) {
+  
+}
+
+function ca_calendar_remove_calendar_event_admin_action($user, $context) {
+  $available_roles = user_roles(TRUE);
+  $roles = $user->roles;
+  foreach ($available_roles as $key => $role) {
+    if ($role == 'calendar event administrator') {
+      $remove_roles[$key] = $role;
+    }
+  }
+  $roles = array_diff($roles, $remove_roles);
+  user_save($user, array('roles' => $roles));
+}
+
+function ca_calendar_remove_calendar_event_admin_action_form() {
+  $form = array();
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Demote from Calendar Event Administrator',
+  );
+  return $form;
+}
+
+function ca_calendar_remove_calendar_event_admin_action_submit(&$form, &$form_state) {
+  
+}
+
+function ca_calendar_add_calendar_event_creator_action($user, $context) {
+  $available_roles = user_roles(TRUE);
+  $roles = $user->roles;
+  foreach ($available_roles as $key => $role) {
+    if ($role == 'calendar event creator') {
+      $add_roles[$key] = $role;
+    }
+  }
+  $roles += $add_roles;
+  user_save($user, array('roles' => $roles));
+}
+
+function ca_calendar_add_calendar_event_creator_action_form() {
+  $form = array();
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Promote to Calendar Event Creator',
+  );
+  return $form;
+}
+
+function ca_calendar_add_calendar_event_creator_action_submit(&$form, &$form_state) {
+  
+}
+
+function ca_calendar_remove_calendar_event_creator_action($user, $context) {
+  $available_roles = user_roles(TRUE);
+  $roles = $user->roles;
+  foreach ($available_roles as $key => $role) {
+    if ($role == 'calendar event creator') {
+      $remove_roles[$key] = $role;
+    }
+  }
+  $roles = array_diff($roles, $remove_roles);
+  user_save($user, array('roles' => $roles));
+}
+
+function ca_calendar_remove_calendar_event_creator_action_form() {
+  $form = array();
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Demote from Calendar Event Creator',
+  );
+  return $form;
+}
+
+function ca_calendar_remove_calendar_event_creator_action_submit(&$form, &$form_state) {
+  
+}
